@@ -41,6 +41,13 @@ public class PandasCategoricalParserTest {
 		assertEquals(Arrays.asList(Arrays.asList("null", "A", "B, B", "C, [C], C"), Arrays.asList(-2, -1, 0, 1, 2), Arrays.asList(-2d, -1d, 0d, 1d, 2d), Arrays.asList(Boolean.FALSE, Boolean.TRUE)), pandasCategories);
 	}
 
+	@Test
+	public void parseEscapedCharacters() throws Exception {
+		List<List<Object>> pandasCategories = parsePandasCategorical("[[\"ipad 10.2\\\" 8th gen (wifi only)\"]]");
+
+		assertEquals(Arrays.asList(Arrays.asList("ipad 10.2\\\" 8th gen (wifi only)")), pandasCategories);
+	}
+
 	static
 	private List<List<Object>> parsePandasCategorical(String value) throws ParseException {
 		PandasCategoricalParser parser = new PandasCategoricalParser("pandas_categorical:" + value);
